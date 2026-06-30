@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMO Daily Post · Purely Personal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#E8294C; --primary-light:#F5607A;
+    --black:#0A0A0A; --ink:#15151A; --white:#FFFFFF; --off-white:#F8F7F5;
+    --gray:#E4E3E0; --gray-text:#5b5b62; --gray-light:#F2F1EE;
+    --good:#16A34A; --warn:#D97706; --bad:#DC2626;
+    --r-md:14px; --r-lg:22px; --pill:9999px;
+    --sh:0 1px 2px rgba(0,0,0,.04),0 8px 28px rgba(0,0,0,.06);
+    --grad:linear-gradient(135deg, color-mix(in srgb,var(--primary) 78%, #000) 0%, var(--primary) 48%, var(--primary-light) 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Rethink Sans',sans-serif;background:radial-gradient(80% 60% at 96% -12%, color-mix(in srgb,var(--primary) 14%, transparent), transparent 60%), radial-gradient(60% 50% at 0% 6%, color-mix(in srgb,var(--primary-light) 10%, transparent), transparent 55%), var(--off-white);background-attachment:fixed;color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .doc{max-width:840px;margin:0 auto;padding:34px 22px 70px;}
+
+  .ohead{border-radius:var(--r-md);padding:26px 28px;margin-bottom:22px;color:#fff;background:var(--grad);box-shadow:0 16px 42px color-mix(in srgb,var(--primary) 30%, transparent);position:relative;overflow:hidden;}
+  .ohead::after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.10);top:-120px;right:-60px;pointer-events:none;}
+  .ohead .k{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.82;font-weight:600;}
+  .ohead h1{font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.02em;margin:5px 0 3px;}
+  .ohead .d{font-size:13px;opacity:.85;}
+
+  .sec{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-text);font-weight:700;margin:24px 0 12px;}
+  .card{background:#fff;border:1px solid var(--gray);border-radius:var(--r-md);box-shadow:var(--sh);padding:18px 20px;margin-bottom:14px;border-left:4px solid var(--primary);}
+  .card h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-text);margin-bottom:12px;}
+  .row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;font-size:14px;border-bottom:1px solid var(--gray-light);line-height:1.5;}
+  .row:last-child{border-bottom:none;}
+  .row .label{font-size:11px;font-weight:700;color:var(--gray-text);min-width:80px;flex-shrink:0;padding-top:2px;}
+  .tagi{font-size:11px;font-weight:700;padding:2px 9px;border-radius:var(--pill);margin-left:auto;white-space:nowrap;flex-shrink:0;}
+  .t-red{background:#fdecec;color:var(--bad);}
+  .t-amb{background:#fdf1de;color:var(--warn);}
+  .t-grey{background:var(--gray-light);color:var(--gray-text);}
+  .t-grn{background:#e7f6ee;color:var(--good);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .note{background:linear-gradient(135deg, var(--ink) 0%, color-mix(in srgb,var(--primary) 26%, var(--ink)) 100%);color:#fff;border-radius:var(--r-md);padding:18px 22px;font-size:15px;margin-top:6px;box-shadow:0 14px 36px rgba(0,0,0,.16);}
+  .note b{color:var(--primary-light);}
+
+  .lipost{background:#fff;border:1px solid var(--gray);border-radius:var(--r-md);box-shadow:var(--sh);padding:22px 24px;margin-bottom:14px;}
+  .lihead{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+  .av{width:48px;height:48px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0;}
+  .lihead .nm{font-weight:700;font-size:15px;}
+  .lihead .mt{font-size:12px;color:var(--gray-text);}
+  .post{font-size:15px;line-height:1.75;white-space:pre-line;color:var(--ink);}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--gray-light);}
+  .chip{font-size:12px;font-weight:600;background:var(--gray-light);color:var(--gray-text);padding:5px 11px;border-radius:var(--pill);}
+  .score-box{text-align:center;margin:20px 0 6px;}
+  .score{display:inline-flex;align-items:center;gap:8px;background:#e7f6ee;color:var(--good);font-weight:700;font-size:14px;padding:8px 18px;border-radius:var(--pill);}
+  .diag-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+  .diag-card{background:#fff;border:1px solid var(--gray);border-radius:var(--r-md);box-shadow:var(--sh);padding:14px 16px;text-align:center;}
+  .diag-card .d-label{font-size:11px;color:var(--gray-text);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+  .diag-card .d-score{font-size:26px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .draft-note{font-size:12px;color:var(--gray-text);text-align:center;margin-top:10px;font-style:italic;}
+
+  footer{text-align:center;padding:30px 22px 10px;color:var(--gray-text);font-size:13px;}
+  footer b{color:var(--ink);}
+
+  @media(max-width:640px){.grid2{grid-template-columns:1fr;}.diag-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body data-theme="standard">
+  <div class="doc">
+
+    <div class="ohead">
+      <div class="k">CMO · Daily post</div>
+      <h1>Today's post, in your voice</h1>
+      <div class="d">Pillar: Real Estate Investing · Educate · scored and scrubbed</div>
+    </div>
+
+    <div class="lipost">
+      <div class="lihead">
+        <div class="av">TRL</div>
+        <div>
+          <div class="nm">Timi Rae Lai · 1st</div>
+          <div class="mt">Real Estate Professional · KW Philippines · now</div>
+        </div>
+      </div>
+      <div class="post">One number most investors never check kills their second deal.
+(Save this + Repost if useful ♻️)
+
+Most people run gross rental yield. That number lies.
+
+Here are 7 mistakes real estate investors make before they know it:
+
+1. Gross yield is not net yield. After tax, vacancy, maintenance, and management fees, your 8% listing becomes 4.5% in reality. That's the number that matters.
+
+2. Buying in a suburb they've never visited. A 3% vacancy rate in a report looks very different from 6 empty units in the same building.
+
+3. Overstretching on deal one. One bad tenant or one emergency repair wipes out 6 months of returns. The first deal needs breathing room.
+
+4. No exit strategy before signing. Holding 5 years or 10 changes which property makes sense. Decide that before you buy, not after.
+
+5. Holding costs get ignored every time. Vacancy periods, property tax, insurance, and maintenance. Budget 25% of gross rent before the deal makes sense on paper.
+
+6. Emotion driving the decision. "It's a great area" is not a financial argument. Every deal lives and dies on the numbers.
+
+7. Treating the first property as the retirement plan. One deal is a start. Acting like it's the finish line is the real mistake.
+
+The investors who fix these early don't just hold their first property. They buy a second one.
+
+Good luck.
+
+P.S. The number to check first: net yield after all costs, not the figure on the listing.</div>
+      <div class="chips">
+        <span class="chip">~1,415 chars</span>
+        <span class="chip">Hook: Curiosity Gap</span>
+        <span class="chip">Variation A · Educate</span>
+        <span class="chip">No em dashes</span>
+        <span class="chip">7 points</span>
+        <span class="chip">Draft · not sent</span>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>Hook options</h4>
+        <div class="row">
+          <span>One number most investors never check kills their second deal.</span>
+          <span class="tagi t-grn">chosen</span>
+        </div>
+        <div class="row">
+          <span>I watched a client lose his first investment in 6 months.</span>
+          <span class="tagi t-grey">alt</span>
+        </div>
+        <div class="row">
+          <span>Cash flow alone will not make you a real estate investor.</span>
+          <span class="tagi t-grey">alt</span>
+        </div>
+      </div>
+      <div class="card">
+        <h4>Publish check</h4>
+        <div class="row">Stops the scroll <span class="tagi t-grn">✓</span></div>
+        <div class="row">Matches Voice DNA <span class="tagi t-grn">✓</span></div>
+        <div class="row">Specific detail (8% to 4.5%) <span class="tagi t-grn">✓</span></div>
+        <div class="row">No banned words <span class="tagi t-grn">✓</span></div>
+        <div class="row">One clear P.S. <span class="tagi t-grn">✓</span></div>
+      </div>
+    </div>
+
+    <div class="sec">Invisibility Diagnostic</div>
+    <div class="diag-grid">
+      <div class="diag-card"><div class="d-label">Voice</div><div class="d-score">1/1</div></div>
+      <div class="diag-card"><div class="d-label">POV</div><div class="d-score">1/1</div></div>
+      <div class="diag-card"><div class="d-label">Specificity</div><div class="d-score">1/1</div></div>
+      <div class="diag-card"><div class="d-label">Asking</div><div class="d-score">1/1</div></div>
+    </div>
+    <div class="score-box"><span class="score">Invisibility Diagnostic: 4 / 4</span></div>
+
+    <div class="sec">Pinned comment options</div>
+    <div class="card">
+      <div class="row">
+        <span class="label">Extend</span>
+        <span>Quick way to run the real numbers: take gross annual rent, subtract 25% for all costs, divide by purchase price plus acquisition fees. That's your actual yield. Under 4% and the deal needs a very strong reason to still make sense.</span>
+      </div>
+      <div class="row">
+        <span class="label">Humanise</span>
+        <span>Mistake 7 is the one I see most. A good investor stops after deal one because it feels like enough. The mindset for the second deal is built during the first one. Waiting 4 years to buy again is the real cost of treating it as the finish line.</span>
+      </div>
+      <div class="row">
+        <span class="label">CTA</span>
+        <span>If you're running the numbers on a property right now and want a second set of eyes on the net yield, drop a comment. Happy to walk through it with you.</span>
+      </div>
+    </div>
+
+    <div class="note">This post is a draft for your review. <b>Read it once out loud before publishing.</b> If any line sounds like it was written by someone else, change that line. The P.S. is the most read line after the hook. Make sure it earns its place.</div>
+
+    <p class="draft-note">Draft only. Nothing here has been published or sent. You approve before anything goes live.</p>
+
+    <footer>The brain thinks. The team works. You approve. · <b>Built by Daniel Paul · Purely Personal</b></footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    window.addEventListener('load',function(){
+      if(!window.gsap)return; gsap.registerPlugin(ScrollTrigger);
+      gsap.from('.ohead',{y:26,opacity:0,scale:.98,duration:.7,ease:'power3.out'});
+      gsap.from('.ohead h1',{y:14,opacity:0,duration:.7,delay:.12,ease:'power3.out'});
+      gsap.from('.lipost,.card,.diag-card,.note',{y:20,opacity:0,duration:.55,stagger:.07,ease:'power2.out',scrollTrigger:{trigger:'.doc',start:'top 85%'}});
+    });
+  </script>
+</body>
+</html>
